@@ -1,1 +1,24 @@
-console.log("test");
+
+const { ApolloServer } = require('apollo-server');
+
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
+const AccountAPI = require('./dataSources/accountsApi');
+const UsersAPI = require('./dataSources/usersApi');
+const authentication = require('./utils/authentication');
+
+const server = new ApolloServer({
+    context: authentication,
+    typeDefs,
+    resolvers,
+    dataSources: () => ({
+        accountAPI: new AccountAPI(),
+        usersAPI: new UsersAPI(),
+    }),
+    introspection: true,
+    playground: true
+});
+
+server.listen(process.env.PORT || 4000).then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+});

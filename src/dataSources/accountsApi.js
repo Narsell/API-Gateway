@@ -13,8 +13,7 @@ class AccountAPI extends RESTDataSource {
   }
 
   async createTransaction(transaction){
-    const transaction = new Object(transaction);
-    return await this.post('/transactions', transaction);    
+    return await this.post('/transactions', { ... transacction });    
   }
 
   async transactionsByUserId(userId){

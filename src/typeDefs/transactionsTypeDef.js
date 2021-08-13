@@ -15,7 +15,7 @@ const transactionTypeDefs = gql`
         value: Int
     }
 
-    type Query {
+    extend type Query {
         transactionsByUserId(userId: String!): [Transaction]
     }
     
